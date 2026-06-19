@@ -1,0 +1,9 @@
+﻿node_modules/
+.npm-cache/
+data/crm/*.json
+data/crm/*.csv
+data/crm/*.txt
+*.pid
+*.log
+.DS_Store
+Thumbs.db

@@ -1,0 +1,137 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>服务商订单雷达</title>
+    <link rel="stylesheet" href="./assets/css/styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="control-panel" aria-label="订单筛选器">
+        <div class="brand-row">
+          <div>
+            <p class="eyebrow">服务商订单雷达</p>
+            <h1>输入你的服务类型，筛出今天值得联系的订单机会</h1>
+          </div>
+          <span class="status-pill" id="dataStatus">加载数据</span>
+        </div>
+
+        <form id="filterForm" class="filter-grid">
+          <label>
+            服务类型
+            <select id="serviceType" name="serviceType">
+              <option value="网站建设">网站建设</option>
+              <option value="小程序开发">小程序开发</option>
+              <option value="宣传片拍摄">宣传片拍摄</option>
+              <option value="培训咨询">培训咨询</option>
+              <option value="设计印刷">设计印刷</option>
+              <option value="新媒体运营">新媒体运营</option>
+            </select>
+          </label>
+          <label>
+            城市/地区
+            <input id="city" name="city" placeholder="全国 / 上海 / 深圳">
+          </label>
+          <label>
+            最低预算（万）
+            <input id="budgetMin" name="budgetMin" type="number" min="0" value="3">
+          </label>
+          <label>
+            最高预算（万）
+            <input id="budgetMax" name="budgetMax" type="number" min="0" value="500">
+          </label>
+          <label>
+            截止窗口
+            <select id="deadlineWindow" name="deadlineWindow">
+              <option value="30">30天内</option>
+              <option value="14">14天内</option>
+              <option value="7">7天内</option>
+              <option value="999">不限</option>
+            </select>
+          </label>
+          <button class="primary-action" type="submit">匹配订单</button>
+        </form>
+      </section>
+
+      <section class="notice-band">
+        <strong>合规提示</strong>
+        <span>本工具只做公开商机筛选、匹配和人工确认话术，不承诺中标，不使用个人微信外挂，不发送自动骚扰消息。</span>
+      </section>
+
+
+      <section class='notice-band data-band'>
+        <strong>数据状态</strong>
+        <span id='metaStatus'>正在读取公开公告数据...</span>
+      </section>
+      <section class="results-layout">
+        <aside class="lead-capture" aria-label="领取样例">
+          <h2>领取3条免费样例</h2>
+          <p>提交后生成企业微信人工确认回复草稿，并保存到本地 CRM。</p>
+          <form id="leadForm">
+            <label>
+              称呼
+              <input name="name" placeholder="例如：王总 / 张老师">
+            </label>
+            <label>
+              微信/手机号
+              <input name="contact" required placeholder="用于人工发送样例">
+            </label>
+            <label>
+              备注
+              <textarea name="note" rows="4" placeholder="例如：只看上海，预算10万以上"></textarea>
+            </label>
+            <button class="secondary-action" type="submit">生成企微回复草稿</button>
+          </form>
+          <div id="draftPanel" class="draft-panel" hidden></div>
+        </aside>
+
+        <section class="matches" aria-label="匹配结果">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">今日优先</p>
+              <h2>Top 5 跟进机会</h2>
+            </div>
+            <button id="exportSamples" class="ghost-action" type="button">复制3条样例</button>
+          </div>
+          <div id="topMatches" class="match-list"></div>
+
+          <div class="section-heading table-heading">
+            <div>
+              <p class="eyebrow">全部结果</p>
+              <h2>订单机会表</h2>
+            </div>
+            <span id="resultCount" class="count-label">0 条</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>项目</th>
+                  <th>服务</th>
+                  <th>地区</th>
+                  <th>预算</th>
+                  <th>截止</th>
+                  <th>评分</th>
+                  <th>动作</th>
+                </tr>
+              </thead>
+              <tbody id="leadRows"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <dialog id="detailDialog">
+      <div id="detailContent"></div>
+      <form method="dialog">
+        <button class="secondary-action">关闭</button>
+      </form>
+    </dialog>
+
+    <script src="./assets/js/app.js"></script>
+  </body>
+</html>
+
+

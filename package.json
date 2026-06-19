@@ -1,0 +1,11 @@
+﻿{
+    "name":  "service-order-radar",
+    "version":  "0.1.0",
+    "private":  true,
+    "description":  "A zero-dependency lead capture and Enterprise WeChat draft system for service-order opportunities.",
+    "scripts":  {
+                    "start":  "node server.js",
+                    "start:public":  "set HOST=0.0.0.0\u0026\u0026 node server.js",
+                    "fetch:leads":  "node scripts/fetch-real-leads.js"
+                }
+}
