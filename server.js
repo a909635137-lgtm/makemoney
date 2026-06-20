@@ -89,7 +89,8 @@ function ensureCsvFile(filePath, headers) {
 
 function readJsonArray(filePath) {
   ensureCrmFiles();
-  return JSON.parse(fs.readFileSync(filePath, "utf8") || "[]");
+  const text = fs.readFileSync(filePath, "utf8").replace(/^\uFEFF/, "").trim();
+  return JSON.parse(text || "[]");
 }
 
 function writeJsonArray(filePath, rows) {
