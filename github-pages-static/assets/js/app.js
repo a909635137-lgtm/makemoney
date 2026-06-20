@@ -2,6 +2,7 @@ const state = {
   leads: [],
   buyers: [],
   matches: [],
+  sampleMode: location.hostname.endsWith("github.io") || location.pathname.includes("github-pages-static"),
   filters: {
     serviceType: "网站建设",
     city: "",
@@ -78,7 +79,7 @@ function scoreLead(lead, filters) {
 function matchLeads() {
   const filters = getFormFilters();
   state.filters = filters;
-  state.matches = state.leads
+  const matches = state.leads
     .map(lead => ({ ...lead, score: scoreLead(lead, filters), daysLeft: daysUntil(lead.deadline) }))
     .filter(lead => {
       const withinBudget = lead.budgetWan >= filters.budgetMin && lead.budgetWan <= filters.budgetMax;
@@ -87,12 +88,13 @@ function matchLeads() {
       return withinBudget && withinTime && serviceHit;
     })
     .sort((a, b) => b.score - a.score || a.daysLeft - b.daysLeft);
+  state.matches = state.sampleMode ? matches.slice(0, 3) : matches;
 
   render();
 }
 
 function render() {
-  $("#resultCount").textContent = `${state.matches.length} 条`;
+  $("#resultCount").textContent = state.sampleMode ? `${state.matches.length} 条样例` : `${state.matches.length} 条`;
   renderMeta();
   renderTopMatches();
   renderRows();
@@ -104,12 +106,14 @@ function renderMeta() {
   $("#dataStatus").textContent = state.meta.status || "公开公告";
   const metaStatus = $("#metaStatus");
   if (metaStatus) {
-    metaStatus.textContent = `${state.meta.status || "公开公告"}｜${state.meta.count || state.leads.length}条｜更新：${generated}｜预算覆盖率：${Math.round((state.meta.budgetCoverage || 0) * 100)}%`;
+    const fullPack = state.meta.fullPackCount ? `｜完整版${state.meta.fullPackCount}+条` : "";
+    const library = state.meta.fullLibraryCount ? `｜库内${state.meta.fullLibraryCount}条` : `｜${state.meta.count || state.leads.length}条`;
+    metaStatus.textContent = `${state.meta.status || "公开公告"}${library}${fullPack}｜更新：${generated}｜预算覆盖率：${Math.round((state.meta.budgetCoverage || 0) * 100)}%`;
   }
 }
 function renderTopMatches() {
   const container = $("#topMatches");
-  const top = state.matches.slice(0, 5);
+  const top = state.matches.slice(0, state.sampleMode ? 3 : 5);
   container.innerHTML = top.map(lead => `
     <article class="match-card ${lead.daysLeft <= 3 ? "urgent" : ""}">
       <h3>${escapeHtml(lead.title)}</h3>
@@ -137,7 +141,11 @@ function renderRows() {
       <td><strong>${lead.score}</strong></td>
       <td><button class="link-button" type="button" data-detail="${lead.id}">详情</button></td>
     </tr>
-  `).join("");
+  `).join("") + (state.sampleMode ? `
+    <tr>
+      <td colspan="7"><strong>免费页只展示3条样例。</strong> 完整版29.9包含网站/软件方向30+条线索、CSV表和逐条跟进话术。</td>
+    </tr>
+  ` : "");
 }
 
 function showDetail(id) {
@@ -297,6 +305,9 @@ $("#filterForm").addEventListener("submit", event => {
 
 $("#leadForm").addEventListener("submit", submitLead);
 $("#exportSamples").addEventListener("click", copySamples);
+$("#copyBuyIntent")?.addEventListener("click", () => {
+  copyText("你好，我想领取网站软件29.9信息包，先看3条免费样例。");
+});
 
 Promise.all([
   fetch("./assets/data/leads.json").then(response => response.json()),

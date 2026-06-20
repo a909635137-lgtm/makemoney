@@ -1,0 +1,43 @@
+name: Weekly Lead Refresh
+
+on:
+  schedule:
+    - cron: "0 1 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Fetch public leads
+        run: npm run fetch:leads
+      - name: Sync static site
+        run: npm run sync:static
+      - name: Commit main updates
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/data github-pages-static 数据采集报告.md
+          git diff --cached --quiet || git commit -m "Weekly public lead refresh"
+          git push origin main
+      - name: Publish gh-pages branch
+        run: |
+          git fetch origin gh-pages:gh-pages || true
+          rm -rf /tmp/makemoney-pages
+          git worktree add /tmp/makemoney-pages gh-pages
+          rsync -a --delete github-pages-static/ /tmp/makemoney-pages/
+          cd /tmp/makemoney-pages
+          git add .
+          git diff --cached --quiet || git commit -m "Publish weekly lead refresh"
+          git push origin gh-pages

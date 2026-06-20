@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>销售控制台｜服务商订单雷达</title>
+    <link rel="stylesheet" href="./assets/css/styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="control-panel">
+        <div class="brand-row">
+          <div>
+            <p class="eyebrow">本地销售控制台</p>
+            <h1>闲鱼/小红书私信获客，企业微信人工成交</h1>
+            <p class="hero-copy">录入潜在服务商，生成首聊、样例、29.9成交和24小时跟进草稿。企微机器人只提醒你，不直接联系客户。</p>
+          </div>
+          <span class="status-pill" id="consoleStatus">本地模式</span>
+        </div>
+      </section>
+
+      <section class="audience-grid">
+        <article class="info-panel">
+          <p class="eyebrow">闲鱼搜索词</p>
+          <h2>每天20个，连续5天</h2>
+          <p>网站建设、小程序开发、软件外包、官网制作、系统开发、网站维护。</p>
+        </article>
+        <article class="info-panel">
+          <p class="eyebrow">小红书搜索词</p>
+          <h2>只私信服务商主页</h2>
+          <p>网站建设接单、小程序外包、程序员接单、软件公司获客、开发工作室。</p>
+        </article>
+        <article class="info-panel price-panel">
+          <p class="eyebrow">成交路径</p>
+          <h2>样例 -> 29.9 -> 99月更</h2>
+          <p>先发3条样例，客户要完整版后手动收款，再发送本周ZIP信息包。</p>
+        </article>
+      </section>
+
+      <section class="results-layout">
+        <aside class="lead-capture">
+          <h2>录入意向服务商</h2>
+          <form id="prospectForm">
+            <label>
+              来源平台
+              <select name="platform">
+                <option value="闲鱼">闲鱼</option>
+                <option value="小红书">小红书</option>
+                <option value="朋友圈/社群">朋友圈/社群</option>
+              </select>
+            </label>
+            <label>
+              昵称/店铺名
+              <input name="handle" required placeholder="例如：某某网站建设工作室">
+            </label>
+            <label>
+              联系方式
+              <input name="contact" placeholder="企微/微信/手机号">
+            </label>
+            <label>
+              服务类型
+              <select name="serviceType">
+                <option value="网站建设">网站建设</option>
+                <option value="小程序开发">小程序开发</option>
+                <option value="软件外包">软件外包</option>
+                <option value="系统运维">系统运维</option>
+              </select>
+            </label>
+            <label>
+              城市
+              <input name="city" value="全国">
+            </label>
+            <label>
+              主页/商品链接
+              <input name="sourceUrl" placeholder="闲鱼或小红书主页链接">
+            </label>
+            <label>
+              备注
+              <textarea name="note" rows="4" placeholder="案例、报价、是否活跃、能否接政企项目"></textarea>
+            </label>
+            <button class="secondary-action" type="submit">保存并生成草稿</button>
+          </form>
+        </aside>
+
+        <section class="matches">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">销售台账</p>
+              <h2>潜在客户与下一步动作</h2>
+            </div>
+            <button id="refreshProspects" class="ghost-action" type="button">刷新</button>
+          </div>
+          <div id="prospectList" class="console-list"></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="./assets/js/sales-console.js"></script>
+  </body>
+</html>

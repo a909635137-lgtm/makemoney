@@ -6,6 +6,10 @@
     "scripts":  {
                     "start":  "node server.js",
                     "start:public":  "set HOST=0.0.0.0\u0026\u0026 node server.js",
-                    "fetch:leads":  "node scripts/fetch-real-leads.js"
+                    "fetch:leads":  "node scripts/fetch-real-leads.js",
+                    "sync:static":  "node scripts/sync-static.js",
+                    "build:pack":  "node scripts/build-pack.js",
+                    "notify:wecom":  "node scripts/notify-wecom.js",
+                    "weekly:update":  "npm run fetch:leads && npm run sync:static && npm run build:pack && npm run notify:wecom"
                 }
 }

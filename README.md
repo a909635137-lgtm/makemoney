@@ -1,21 +1,45 @@
-﻿# 服务商订单雷达
+# 服务商订单雷达
 
-这是一个可部署到 GitHub Pages 的真实公开采购/招标线索筛选网站。
+面向网站建设、小程序、软件外包和系统运维团队的公开采购机会筛选与半自动销售系统。
 
-## 在线部署
+## 公网样例页
 
-仓库推送到 GitHub 后，`.github/workflows/pages.yml` 会把 `github-pages-static/` 发布到 GitHub Pages。
+https://a909635137-lgtm.github.io/makemoney/
 
-## 本地运行
+## 本地销售控制台
 
 ```powershell
-$env:HOST="0.0.0.0"
-$env:PORT="4173"
 npm start
 ```
 
-本地后端可写入 `data/crm`；GitHub Pages 静态版本没有后端，会自动使用浏览器本地缓存并生成可复制企微话术。
+打开：
 
-## 数据
+```text
+http://localhost:4173/sales-console.html
+```
 
-`github-pages-static/assets/data/leads.json` 当前包含 30 条真实公开公告线索，均保留具体来源 URL。
+## 29.9信息包
+
+```powershell
+npm run build:pack
+```
+
+输出 `dist/packs/服务商订单雷达_网站软件_YYYY-WW_29.9.zip`，包含 HTML、CSV、JSON、话术和风险提示。
+
+## 每周更新
+
+```powershell
+npm run weekly:update
+```
+
+GitHub Actions 已配置每周一自动更新公开公告数据并同步 GitHub Pages。
+
+## 企业微信
+
+复制 `.env.example` 为 `.env`，填入：
+
+```text
+WECOM_BOT_WEBHOOK=你的企业微信群机器人webhook
+```
+
+机器人只推送内部待发送草稿，不直接联系客户。

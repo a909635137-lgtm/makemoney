@@ -83,6 +83,14 @@ h1 {
   line-height: 1.08;
 }
 
+.hero-copy {
+  max-width: 820px;
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
 h2 {
   margin-bottom: 12px;
   font-size: 22px;
@@ -179,6 +187,52 @@ textarea:focus {
 .notice-band strong {
   color: var(--red);
   white-space: nowrap;
+}
+
+.audience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.info-panel {
+  min-height: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+
+.info-panel p {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.price-panel {
+  border-color: #b9d8cd;
+  background: #f6fbf8;
+}
+
+.plain-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.copy-code {
+  display: inline-block;
+  max-width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #f6f8f7;
+  padding: 8px 10px;
+  color: var(--green-dark);
+  white-space: normal;
 }
 
 .results-layout {
@@ -324,9 +378,47 @@ dialog::backdrop {
   align-items: center;
 }
 
+.console-list {
+  display: grid;
+  gap: 14px;
+}
+
+.prospect-card h2 {
+  margin-bottom: 6px;
+  font-size: 20px;
+}
+
+.draft-line {
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.draft-line p {
+  margin: 6px 0;
+}
+
+.console-actions {
+  display: grid;
+  grid-template-columns: 150px minmax(180px, 1fr) auto auto;
+  gap: 8px;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.compact {
+  min-height: 34px;
+  padding: 0 10px;
+  font-size: 13px;
+}
+
 @media (max-width: 1100px) {
   .filter-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .audience-grid {
+    grid-template-columns: 1fr;
   }
 
   .results-layout {
@@ -350,7 +442,8 @@ dialog::backdrop {
 
   .brand-row,
   .section-heading,
-  .notice-band {
+  .notice-band,
+  .console-actions {
     display: grid;
   }
 

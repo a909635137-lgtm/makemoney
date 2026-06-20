@@ -1,5 +1,7 @@
 ﻿node_modules/
 .npm-cache/
+.env
+dist/
 data/crm/*.json
 data/crm/*.csv
 data/crm/*.txt

@@ -6,7 +6,7 @@ const OUT = path.join(ROOT, "assets", "data", "leads.json");
 const META = path.join(ROOT, "assets", "data", "meta.json");
 const REPORT = path.join(ROOT, "数据采集报告.md");
 const TODAY = new Date("2026-06-20T00:00:00+08:00");
-const TARGET = Number(process.env.TARGET_COUNT || 30);
+const TARGET = Number(process.env.TARGET_COUNT || 80);
 
 const SEED_NOTICES = [
   "http://www.ccgp.gov.cn/cggg/zygg/gkzb/202606/t20260601_26666130.htm",
